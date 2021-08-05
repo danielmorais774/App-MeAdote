@@ -8,5 +8,7 @@ export default interface IPetsRepository{
     findAllAndCount(data: IFindAllPetDTO) : Promise<{ data: Pet[], total: number }>;
     findByRecent(data: IFindLocationDTO) : Promise<Pet[]>;
     findById(id: string) : Promise<Pet | undefined>;
+    findByTutorId(tutorId: string): Promise<Pet[]>;
     findByLocation(cityId: string) : Promise<Pet[]>;
+    save(pet: Pet) : Promise<Pet>;
 }

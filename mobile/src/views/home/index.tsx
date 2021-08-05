@@ -9,11 +9,17 @@ import PetHorizontaList from '../../components/PetHorizontaList';
 import PetList from '../../components/PetList';
 import {FlatList} from 'react-native-gesture-handler';
 
+//hooks
+import {useNavigation} from '@react-navigation/native';
+
 import {IPetRaw} from '../../models/petRaw';
 
 import {petsService} from '../../services';
 
 const Home: React.FC = () => {
+  //hooks
+  const {navigate} = useNavigation();
+
   const [petRecentList, setPetRecentList] = useState<IPetRaw[]>([]);
   const [petList, setPetList] = useState<IPetRaw[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -60,7 +66,30 @@ const Home: React.FC = () => {
             {item.gridView === 'horizontal' && (
               <PetHorizontaList data={item.data} />
             )}
-            {item.gridView === 'vertical' && <PetList data={item.data} />}
+            {item.gridView === 'vertical' && (
+              <PetList
+                data={item.data}
+                style={{
+                  flex: 1,
+                  backgroundColor: '#fff',
+                  paddingTop: 15,
+                  marginTop: 15,
+                  borderTopRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: -2,
+                  },
+                  shadowOpacity: 0.28,
+                  shadowRadius: 3.84,
+
+                  elevation: 5,
+                }}
+                paddingHorizontal={18}
+                onPressItem={id => navigate('Pet', {id})}
+              />
+            )}
           </>
         )}
         showsVerticalScrollIndicator={false}

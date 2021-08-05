@@ -14,9 +14,6 @@ import {
 import {StyleSheet} from 'react-native';
 import {IPetCard} from '../..';
 
-//hooks
-import {useNavigation} from '@react-navigation/native';
-
 // interface IPetItem extends IPet {
 //   empty: boolean;
 // }
@@ -24,19 +21,17 @@ import {useNavigation} from '@react-navigation/native';
 interface IPetCardItemProps {
   item: IPetCard;
   index: number;
+  onPressItem(id: string): void;
 }
 
-const PetCardItem = ({item, index}: IPetCardItemProps) => {
-  //hooks
-  const {navigate} = useNavigation();
-
+const PetCardItem = ({item, index, onPressItem}: IPetCardItemProps) => {
   return (
     <>
       {item?.empty === true ? (
         <Container indexComponent={index} />
       ) : (
         <Container
-          onPress={() => navigate('Pet', {id: item.id})}
+          onPress={() => onPressItem(item.id)}
           style={styles.shadowCard}
           indexComponent={index}>
           <CardImage

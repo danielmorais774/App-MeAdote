@@ -19,6 +19,14 @@ class BreedsRepository implements IBreedsRepository{
         return breed;
     }
 
+    public async findAll(): Promise<Breed[]>{
+        return this.breedsRepository.find({
+            order: {
+                name: 'ASC'
+            }
+        });
+    }
+
     public async create({ name, type }: ICreateBreedDTO): Promise<Breed>{
         const breed = this.breedsRepository.create({
             name, 

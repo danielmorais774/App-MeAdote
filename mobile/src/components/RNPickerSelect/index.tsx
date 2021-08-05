@@ -90,7 +90,7 @@ export default function RNPickerSelect({
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     height: 45,
-    fontSize: 16,
+    fontSize: 13,
     paddingHorizontal: 15,
     paddingVertical: 5,
     borderWidth: 2,
@@ -112,7 +112,7 @@ const pickerSelectStyles = StyleSheet.create({
   },
   inputAndroid: {
     height: 45,
-    fontSize: 16,
+    fontSize: 13,
     width: 'auto',
     paddingHorizontal: 15,
     paddingVertical: 5,

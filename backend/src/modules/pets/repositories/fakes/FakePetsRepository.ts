@@ -28,6 +28,10 @@ class FakePetsRepository implements IPetsRepository{
         return this.pets.find(pet => pet.id === id);
     }
 
+    public async findByTutorId(tutorId: string): Promise<Pet[]>{
+        return this.pets.filter(pet => pet.tutor_id === tutorId);
+    }
+
     public async findByLocation(cityId: string): Promise<Pet[]>{
         return this.pets;
     }

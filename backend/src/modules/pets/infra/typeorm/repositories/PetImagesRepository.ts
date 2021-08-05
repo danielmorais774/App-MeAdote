@@ -13,6 +13,10 @@ class PetImagesRepository implements IPetImagesRepository{
     constructor(){
         this.petImagesRepository = getRepository(PetImage);
     }
+
+    public async findById(id: string): Promise<PetImage | undefined>{
+        return await this.petImagesRepository.findOne(id);
+    }
  
     public async create({ petId, path }: ICreatePetImageDTO): Promise<PetImage>{
         const petImage = this.petImagesRepository.create({
@@ -21,6 +25,10 @@ class PetImagesRepository implements IPetImagesRepository{
         });
 
         return await this.petImagesRepository.save(petImage);
+    }
+
+    public async delete(petImage: PetImage): Promise<void>{
+        await this.petImagesRepository.delete(petImage);
     }
 
 }

@@ -11,6 +11,10 @@ class FakeBreedsRepository implements IBreedsRepository{
         return this.breeds.find(breed => breed.id === id);
     }
 
+    public async findAll(): Promise<Breed[]>{
+        return this.breeds;
+    }
+
     public async create({ name, type }: ICreateBreedDTO): Promise<Breed>{
         const breed = new Breed();
         breed.id = uuid();

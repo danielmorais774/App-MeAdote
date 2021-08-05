@@ -13,10 +13,13 @@ import {
 
 //icons
 import FeatherIcon from 'react-native-vector-icons/Feather';
+
 import {useAuth} from '../../../../hooks/auth';
+import {useNavigation} from '@react-navigation/native';
 
 const HeaderMain: React.FC = () => {
   const {user} = useAuth();
+  const {navigate} = useNavigation();
 
   return (
     <Container>
@@ -32,7 +35,15 @@ const HeaderMain: React.FC = () => {
             />
           </ProfileImageContainer>
         </View>
-        <CircleContainer>
+        <CircleContainer
+          onPress={() =>
+            navigate('AddOrEditPet', {
+              id: '538cf837-1a67-4842-a32a-0bf9abe917bc',
+            })
+          }>
+          <FeatherIcon name="bell" size={22} color={'#323232'} />
+        </CircleContainer>
+        <CircleContainer style={{marginLeft: 10}}>
           <FeatherIcon name="search" size={22} color={'#323232'} />
         </CircleContainer>
         <CircleContainer style={{marginLeft: 10}}>

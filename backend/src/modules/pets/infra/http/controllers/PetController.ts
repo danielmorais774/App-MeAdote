@@ -8,6 +8,7 @@ import PetsRepository from "../../typeorm/repositories/PetsRepository";
 import ListPetsLocationService from "@modules/pets/services/ListPetsLocationService";
 import ListPetsService from "@modules/pets/services/ListPetsService";
 import ShowPetService from "@modules/pets/services/ShowPetService";
+import UpdatePetService from "@modules/pets/services/UpdatePetService";
 
 export default class PetController{
 
@@ -52,6 +53,28 @@ export default class PetController{
             breedId,
             tutorId: user_id,
             images: req.files as Express.Multer.File[],
+        });
+
+        return res.json({ pet: classToClass(pet)});
+    }
+
+    public async update(req: Request, res: Response) : Promise<Response>{
+        
+        const user_id = req.user.id;
+        const { id } = req.params;
+        const { name, gender, age, color, breedId, imagesDeleted } = req.body;
+
+        const updatePetService = container.resolve(UpdatePetService);
+
+        const pet = await updatePetService.execute(id, {
+            name,
+            gender: capitalize(gender) as 'Male' | 'Female',
+            age,
+            color,
+            breedId,
+            images: req.files as Express.Multer.File[],
+            imagesDeleted: imagesDeleted,
+            userId: user_id
         });
 
         return res.json({ pet: classToClass(pet)});

@@ -12,7 +12,7 @@ export interface IPetDetails {
   name: string;
   age: number;
   color: string;
-  gender: string;
+  gender: 'female' | 'male';
   breed: IBreed;
   created_at: string;
   user: IUserCity;

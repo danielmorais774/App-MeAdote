@@ -114,6 +114,37 @@ class PetsRepository implements IPetsRepository{
         return pet;
     }
 
+    public async findByTutorId(tutorId: string): Promise<Pet[]>{
+
+        const pets = await getRepository(Pet).createQueryBuilder("pets")
+        .leftJoin("pets.user", "user", "user.id = pets.tutor_id")
+        .leftJoin('pets.breed', 'breed')
+        .leftJoin("user.city", "city")
+        .where("pets.tutor_id = :tutorId", { tutorId: tutorId })
+        .orderBy('pets.created_at', 'DESC')
+        .take(10)
+        .select([
+            'pets.id as id', 
+            'pets.name as name',
+            'pets.age as age',
+            'pets.gender as gender',
+            'pets.color as color',
+            'breed.name as breed',
+            // 'pets.breed as breed',
+            'pets.user',
+            'city.name AS location',
+            'pets.created_at as created_at'
+        ])
+        .addSelect(subQuery => {
+            return subQuery.select('pet_images.path', 'image').from(PetImage, 'pet_images').where('pet_images.pet_id = pets.id').limit(1);
+        })
+        .getRawMany();
+
+        return pets.map((pet) => {
+            return pet.image ? {...pet, image: `${process.env.APP_IMAGE_URL}/files/${pet.image}`} : null;
+        });
+    }
+
     public async create({ name, gender, age, color, breedId, tutorId }: ICreatePetDTO): Promise<Pet>{
         const pet = this.petsRepository.create({
             name, 
@@ -124,6 +155,10 @@ class PetsRepository implements IPetsRepository{
             tutor_id: tutorId
         });
 
+        return await this.petsRepository.save(pet);
+    }
+
+    public async save(pet: Pet): Promise<Pet>{
         return await this.petsRepository.save(pet);
     }
 

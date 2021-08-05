@@ -14,9 +14,18 @@ interface IPetlistProps {
   data: IPetCard[];
   isLoading?: boolean;
   header?: React.FC;
+  style?: {};
+  paddingHorizontal?: number;
+  onPressItem(id: string): void;
 }
 
-const PetList: React.FC<IPetlistProps> = ({data, header}) => {
+const PetList: React.FC<IPetlistProps> = ({
+  data,
+  header,
+  style,
+  paddingHorizontal,
+  onPressItem,
+}) => {
   function fillArray(array: IPetCard[]) {
     if (array.length % 2 !== 0) {
       return array.concat([{empty: true} as IPetCard]);
@@ -32,32 +41,17 @@ const PetList: React.FC<IPetlistProps> = ({data, header}) => {
         data={fillArray(data)}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({item, index}) => (
-          <PetCardItem item={item} index={index} />
+          <PetCardItem item={item} index={index} onPressItem={onPressItem} />
         )}
         ItemSeparatorComponent={() => <View style={{height: 10}} />}
-        style={{
-          flex: 1,
-          backgroundColor: '#fff',
-          paddingTop: 15,
-          marginTop: 15,
-          borderTopRightRadius: 10,
-          borderTopLeftRadius: 10,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: -2,
-          },
-          shadowOpacity: 0.28,
-          shadowRadius: 3.84,
-
-          elevation: 5,
-        }}
+        style={style}
         numColumns={2}
         showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         columnWrapperStyle={{
           flex: 0.5,
           justifyContent: 'space-between',
-          paddingHorizontal: 18,
+          paddingHorizontal: paddingHorizontal || 0,
         }}
         onEndReachedThreshold={0.5}
         onEndReached={() => console.log('teste')}

@@ -3,6 +3,7 @@ import api from './api';
 import {IUser} from '../models/user';
 import {IUserCity} from '../models/petDetails';
 import {Image} from 'react-native-image-crop-picker';
+import {IPetRaw} from '../models/petRaw';
 
 interface ICreateUserDTO {
   name: string;
@@ -24,6 +25,10 @@ export interface IUsersService {
 
 interface IUsersResponseAPI {
   user: IUserCity;
+}
+
+interface IMyPetsResponseAPI {
+  pets: IPetRaw[];
 }
 
 export class UsersService implements IUsersService {
@@ -91,6 +96,15 @@ export class UsersService implements IUsersService {
       );
 
       return response.data.user;
+    } catch (e) {
+      throw new Error();
+    }
+  }
+
+  public async getMyPets(): Promise<IPetRaw[]> {
+    try {
+      const response = await api.get<IMyPetsResponseAPI>('api/v1/pets/me');
+      return response.data.pets;
     } catch (e) {
       throw new Error();
     }

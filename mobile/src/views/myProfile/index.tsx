@@ -35,7 +35,7 @@ const MyProfile: React.FC = () => {
       icon: 'user',
       onPress: () => navigate('EditProfile'),
     },
-    {text: 'Meu pets', icon: 'dog'},
+    {text: 'Meu pets', icon: 'dog', onPress: () => navigate('MyPets')},
     {text: 'Pedidos de adoções recebidos', icon: 'clipboard-list'},
     {text: 'Sair', icon: 'power-off', onPress: () => signOut()},
   ];
