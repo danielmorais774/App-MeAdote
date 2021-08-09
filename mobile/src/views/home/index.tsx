@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import {View, ActivityIndicator, FlatList} from 'react-native';
 
 import {Container} from './styles';
 
@@ -7,7 +7,7 @@ import {Container} from './styles';
 import HeaderMain from './components/HeaderMain';
 import PetHorizontaList from '../../components/PetHorizontaList';
 import PetList from '../../components/PetList';
-import {FlatList} from 'react-native-gesture-handler';
+// import {} from 'react-native-gesture-handler';
 
 //hooks
 import {useNavigation} from '@react-navigation/native';
@@ -15,28 +15,37 @@ import {useNavigation} from '@react-navigation/native';
 import {IPetRaw} from '../../models/petRaw';
 
 import {petsService} from '../../services';
+import {useCallback} from 'react';
 
 const Home: React.FC = () => {
   //hooks
   const {navigate} = useNavigation();
 
+  //states
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [petRecentList, setPetRecentList] = useState<IPetRaw[]>([]);
   const [petList, setPetList] = useState<IPetRaw[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  async function loadApi() {
+    const values = await Promise.all([
+      petsService.getPetRecents(),
+      petsService.getPets(),
+    ]);
+
+    setPetRecentList(values[0]);
+    setPetList(values[1].data);
+    setIsLoading(false);
+  }
+
   useEffect(() => {
-    async function loadApi() {
-      const values = await Promise.all([
-        petsService.getPetRecents(),
-        petsService.getPets(),
-      ]);
-
-      setPetRecentList(values[0]);
-      setPetList(values[1].data);
-      setIsLoading(false);
-    }
-
     loadApi();
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await loadApi();
+    setRefreshing(false);
   }, []);
 
   const HeaderComponent = React.useMemo(
@@ -107,6 +116,8 @@ const Home: React.FC = () => {
             )}
           </>
         )}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
     </Container>
   );

@@ -13,10 +13,10 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 
-import {IPetCard} from '../..';
+import {IPetRaw} from '../../../../models/petRaw';
 
 interface IPetCardItemProps {
-  item: IPetCard;
+  item: IPetRaw;
 }
 
 const PetCardItem = ({item}: IPetCardItemProps) => {

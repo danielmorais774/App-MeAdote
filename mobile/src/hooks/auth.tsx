@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import AsyncStorage from '@react-native-community/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 
 import api from '../services/api';
 import {ICity} from '../models/city';
@@ -63,6 +64,7 @@ export const AuthProvider: React.FC = ({children}) => {
         setData({token: token[1], user: JSON.parse(user[1])});
       }
 
+      SplashScreen.hide();
       setLoading(false);
     }
 

@@ -56,6 +56,11 @@ export const ButtonBack = styled.TouchableOpacity`
   width: 35px;
 `;
 
+export const ButtonTrash = styled.TouchableOpacity`
+  width: 35px;
+  align-items: flex-end;
+`;
+
 export const ContainerBottom = styled.View`
   position: absolute;
   bottom: 0px;

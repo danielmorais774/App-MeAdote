@@ -19,6 +19,7 @@ describe('AuthenticateUserService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: '2e09dc4e-83de-4ade-9ad5-dc8f6c620c93'
         });
@@ -44,6 +45,7 @@ describe('AuthenticateUserService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: '2e09dc4e-83de-4ade-9ad5-dc8f6c620c93'
         });

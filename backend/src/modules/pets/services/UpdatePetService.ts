@@ -48,6 +48,7 @@ class UpdatePetService{
         pet.age = age;
         pet.color = color;
         pet.gender = Gender[gender];
+        pet.breed = breedExisted;
         pet.breed_id = breedId;
        
         const petUpdated = await this.petsRepository.save(pet);

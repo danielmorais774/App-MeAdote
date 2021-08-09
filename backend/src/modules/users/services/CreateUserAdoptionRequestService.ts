@@ -31,6 +31,12 @@ class CreateUserAdoptionRequestService {
             throw new AppError('Você não pode enviar uma solicitação para você mesmo.', 400);
         }
 
+        const adoptionRequest = await this.adoptionRequestsRepository.findByPetIdAndUserId(petId, userId);
+
+        if(adoptionRequest){
+            throw new AppError('Você já possui um pedido de adoção feito.', 400);
+        }
+
         return await this.adoptionRequestsRepository.create({
             userId,
             petId,

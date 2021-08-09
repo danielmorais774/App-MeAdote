@@ -17,4 +17,6 @@ export interface IPetDetails {
   created_at: string;
   user: IUserCity;
   images?: IImage[];
+  tutor_id: string;
+  isAdoptionRequested?: boolean;
 }

@@ -10,6 +10,11 @@ export enum Gender {
     Female = 'female'
 }
 
+export enum Status {
+    ENABLE = 'enable',
+    DISABLE = 'disable'
+}
+
 @Entity('pets')
 class Pet{
 
@@ -46,12 +51,18 @@ class Pet{
     @Column()
     breed_id: string;
 
-    // @Column({ nullable: true, insert: false, update: false, select: false })
-    // location: string;
-
     @OneToMany(() => PetImage, petImage => petImage.pet)
     @JoinColumn({ name: "pet_id" })
     images: PetImage[];
+
+    isAdoptionRequested: boolean;
+
+    @Column({
+        type: "enum",
+        enum: Status,
+        default: 'enable'
+    })
+    status: Status;
 
     @CreateDateColumn()
     created_at: Date;

@@ -9,6 +9,7 @@ import ListPetsLocationService from "@modules/pets/services/ListPetsLocationServ
 import ListPetsService from "@modules/pets/services/ListPetsService";
 import ShowPetService from "@modules/pets/services/ShowPetService";
 import UpdatePetService from "@modules/pets/services/UpdatePetService";
+import DeletePetService from "@modules/pets/services/DeletePetService";
 
 export default class PetController{
 
@@ -28,12 +29,13 @@ export default class PetController{
 
     public async show(req: Request, res: Response) : Promise<Response>{
         
+        const user_id = req.user.id;
         const { id } = req.params;
 
         // const listPetsLocationService = container.resolve(ListPetsLocationService);
         const showPetService = container.resolve(ShowPetService);
 
-        const pet = await showPetService.execute(id);
+        const pet = await showPetService.execute({petId: id, userId: user_id});
 
         return res.json({ pet: classToClass(pet) });
     }
@@ -78,5 +80,20 @@ export default class PetController{
         });
 
         return res.json({ pet: classToClass(pet)});
+    }
+
+    public async delete(req: Request, res: Response) : Promise<Response>{
+        
+        const user_id = req.user.id;
+        const { id } = req.params;
+
+        const deletePetService = container.resolve(DeletePetService);
+
+        const pet = await deletePetService.execute({
+            petId: id,
+            userId: user_id
+        });
+
+        return res.json({ error: false });
     }
 }

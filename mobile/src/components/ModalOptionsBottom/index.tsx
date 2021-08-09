@@ -9,12 +9,14 @@ interface IModalOptionsBottomProps {
   isVisible: boolean;
   options: IModalOptions[];
   handleCloseModal(): void;
-  onClickOption(type: 'cancel'): void;
+  onClickOption(
+    type: 'cancel' | 'refused' | 'accepted' | 'info' | 'adopted',
+  ): void;
 }
 
 export interface IModalOptions {
   text: string;
-  type: 'cancel';
+  type: 'cancel' | 'refused' | 'accepted' | 'info' | 'adopted';
 }
 
 const ModalOptionsBottom: React.FC<IModalOptionsBottomProps> = ({

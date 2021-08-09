@@ -36,6 +36,7 @@ describe('EditUserPetStatusAdoptionRequestService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -43,6 +44,7 @@ describe('EditUserPetStatusAdoptionRequestService', () => {
         const user2 = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -85,6 +87,7 @@ describe('EditUserPetStatusAdoptionRequestService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -92,6 +95,7 @@ describe('EditUserPetStatusAdoptionRequestService', () => {
         const user2 = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -134,6 +138,7 @@ describe('EditUserPetStatusAdoptionRequestService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -141,6 +146,7 @@ describe('EditUserPetStatusAdoptionRequestService', () => {
         const user2 = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -172,6 +178,58 @@ describe('EditUserPetStatusAdoptionRequestService', () => {
         })
 
         expect(editAdoptionRequest.status).toBe('accepted');
+
+    });
+
+    it('Should be able to edit status adoption request with status like a adopted', async () => {
+        const cityFake = await fakeCityRepository.create({
+            name: 'Fortaleza', 
+            state: 'CE'
+        })
+
+        const userFake = await fakeUsersRepository.create({
+            name: 'Daniel Morais',
+            email: 'daniel@email.com',
+            phone: '88123345789',
+            password: '12345678',
+            cityId: cityFake.id
+        });
+
+        const user2 = await fakeUsersRepository.create({
+            name: 'Daniel Morais',
+            email: 'daniel@email.com',
+            phone: '88123345789',
+            password: '12345678',
+            cityId: cityFake.id
+        });
+
+        const breed = await fakeBreedsRepository.create({
+            name: 'vira-lata',
+            type: 'Dog'
+        });
+
+        const pet = await fakePetsRepository.create({
+            name: 'Caramelo',
+            age: 10,
+            color: 'caramelo',
+            gender: 'Male',
+            breedId: breed.id,
+            tutorId: userFake.id
+        });
+
+        const adoptionRequest = await fakeAdoptionRequestsRepository.create({
+            userId: user2.id,
+            petId: pet.id
+        });
+
+
+        const editAdoptionRequest = await editUserPetStatusAdoptionRequestService.execute({
+            userId: userFake.id,
+            id: adoptionRequest.id,
+            status: 'ADOPTED'
+        })
+
+        expect(editAdoptionRequest.status).toBe('adopted');
 
     });
 

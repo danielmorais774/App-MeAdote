@@ -22,3 +22,16 @@ export const TitleView = styled.Text`
 export const ButtonBack = styled.TouchableOpacity`
   width: 35px;
 `;
+
+export const FabButton = styled.TouchableOpacity`
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  background-color: #3dc162;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+`;

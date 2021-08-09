@@ -1,4 +1,4 @@
-import { getConnection, getRepository, Repository } from "typeorm";
+import { Equal, getConnection, getRepository, Not, Repository } from "typeorm";
 
 import IAdoptionRequestsRepository from "@modules/users/repositories/IAdoptionRequestsRepository";
 import AdoptionRequest, { Status } from "../entities/AdoptionRequest";
@@ -22,7 +22,7 @@ class AdoptionRequestsRepository implements IAdoptionRequestsRepository{
             order:{
                 created_at: 'DESC'
             },
-            relations: ['pet', 'pet.user', 'pet.images', 'pet.breed']
+            relations: ['pet', 'pet.user', 'pet.user.city', 'pet.images', 'pet.breed']
         });
     }
 
@@ -30,13 +30,21 @@ class AdoptionRequestsRepository implements IAdoptionRequestsRepository{
         return await this.adoptionRequestsRepository.findOne(id);
     }
 
+    public async findByPetIdAndUserId(petId: string, userId: string): Promise<AdoptionRequest | undefined>{
+        return await this.adoptionRequestsRepository.findOne({where: {pet_id: petId, user_id: userId, status: Not('canceled')}});
+    }
+
     public async findReceiverByUserPet(userId: string): Promise<AdoptionRequest[]>{
 
         let adoptionRequests = await getRepository(AdoptionRequest)
             .createQueryBuilder('adoption_requests')
             .leftJoinAndSelect('adoption_requests.pet', 'pet', 'pet_id = pet.id')
+            .leftJoinAndSelect('pet.images', 'images')
+            .leftJoinAndSelect('pet.breed', 'breed')
             .leftJoinAndSelect('adoption_requests.user', 'user', 'user.id = adoption_requests.user_id')
+            .leftJoinAndSelect('user.city', 'city')
             .where('pet.user.id = :userId', { userId })
+            .andWhere('adoption_requests.status != :status', {status: 'canceled'})
             .orderBy('adoption_requests.created_at', 'DESC')
             .getMany();
 
@@ -58,6 +66,10 @@ class AdoptionRequestsRepository implements IAdoptionRequestsRepository{
             id: data.id,
             status: data.status
         });
+    }
+
+    public async deleteRequestsByPetId(petId: string): Promise<void>{
+        await this.adoptionRequestsRepository.delete({pet_id: petId});
     }
 
 }

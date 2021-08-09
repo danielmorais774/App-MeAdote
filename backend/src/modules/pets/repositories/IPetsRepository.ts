@@ -7,8 +7,9 @@ export default interface IPetsRepository{
     create(data: ICreatePetDTO): Promise<Pet>;
     findAllAndCount(data: IFindAllPetDTO) : Promise<{ data: Pet[], total: number }>;
     findByRecent(data: IFindLocationDTO) : Promise<Pet[]>;
-    findById(id: string) : Promise<Pet | undefined>;
+    findById(id: string, userId?: string) : Promise<Pet | undefined>;
     findByTutorId(tutorId: string): Promise<Pet[]>;
     findByLocation(cityId: string) : Promise<Pet[]>;
     save(pet: Pet) : Promise<Pet>;
+    delete(pet: Pet) : Promise<void>;
 }

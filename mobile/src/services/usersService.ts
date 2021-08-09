@@ -8,6 +8,7 @@ import {IPetRaw} from '../models/petRaw';
 interface ICreateUserDTO {
   name: string;
   email: string;
+  phone: string;
   password: string;
   cityId: string;
 }
@@ -35,6 +36,7 @@ export class UsersService implements IUsersService {
   public async createUser({
     name,
     email,
+    phone,
     password,
     cityId,
   }: ICreateUserDTO): Promise<IUserCity> {
@@ -42,6 +44,7 @@ export class UsersService implements IUsersService {
       const response = await api.post<IUsersResponseAPI>('api/v1/user', {
         name,
         email,
+        phone,
         password,
         cityId,
       });

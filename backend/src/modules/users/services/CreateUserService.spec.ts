@@ -31,6 +31,7 @@ describe('CreateUserService', () => {
         const userFake = await createUserService.execute({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -45,6 +46,7 @@ describe('CreateUserService', () => {
         const user = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: '2e09dc4e-83de-4ade-9ad5-dc8f6c620c93'
         });
@@ -52,6 +54,7 @@ describe('CreateUserService', () => {
         const userCreate = createUserService.execute({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: '2e09dc4e-83de-4ade-9ad5-dc8f6c620c93'
         });
@@ -70,6 +73,7 @@ describe('CreateUserService', () => {
         const userCreate = createUserServiceMock.execute({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: '2e09dc4e-83de-4ade-9ad5-dc8f6c620c93'
         });

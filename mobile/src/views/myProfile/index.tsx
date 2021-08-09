@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Alert} from 'react-native';
 
 import {
   Container,
@@ -36,8 +36,25 @@ const MyProfile: React.FC = () => {
       onPress: () => navigate('EditProfile'),
     },
     {text: 'Meu pets', icon: 'dog', onPress: () => navigate('MyPets')},
-    {text: 'Pedidos de adoções recebidos', icon: 'clipboard-list'},
-    {text: 'Sair', icon: 'power-off', onPress: () => signOut()},
+    {
+      text: 'Pedidos de adoções recebidos',
+      icon: 'clipboard-list',
+      onPress: () => navigate('AdoptionRequestsReceived'),
+    },
+    {
+      text: 'Sair',
+      icon: 'power-off',
+      onPress: () => {
+        Alert.alert(
+          'Sair da conta?',
+          'você será redirecionado para tela de login',
+          [
+            {text: 'Cancelar'},
+            {text: 'Sair da Conta', onPress: () => signOut()},
+          ],
+        );
+      },
+    },
   ];
 
   const {user} = useAuth();

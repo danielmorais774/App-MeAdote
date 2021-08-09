@@ -19,6 +19,10 @@ class FakeAdoptionRequestsRepository implements IAdoptionRequestsRepository{
         return this.adoptionRequest.find(item => item.id === id);
     }
 
+    public async findByPetIdAndUserId(petId: string, userId: string): Promise<AdoptionRequest | undefined >{
+        return this.adoptionRequest.find(item => item.pet_id === petId && item.user_id === userId);
+    }
+
     public async findReceiverByUserPet(userId: string): Promise<AdoptionRequest[]>{
         return this.adoptionRequest;
     }
@@ -43,6 +47,10 @@ class FakeAdoptionRequestsRepository implements IAdoptionRequestsRepository{
         }
 
         return {} as AdoptionRequest;
+    }
+
+    public async deleteRequestsByPetId(petId: string): Promise<void>{
+        this.adoptionRequest = this.adoptionRequest.filter(item => item.id !== petId);
     }
 
 }

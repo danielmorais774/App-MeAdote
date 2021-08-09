@@ -38,6 +38,7 @@ interface SignInFormData {
   name: string;
   email: string;
   city: string;
+  phone: string;
   password: string;
   passwordConfirm: string;
 }
@@ -102,6 +103,7 @@ const SignUp: React.FC = () => {
         await usersService.createUser({
           name: data.name,
           email: data.email,
+          phone: data.phone,
           password: data.password,
           cityId: data.city,
         });

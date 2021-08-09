@@ -31,6 +31,7 @@ describe('ListPetsLocationService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -81,6 +82,7 @@ describe('ListPetsLocationService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });

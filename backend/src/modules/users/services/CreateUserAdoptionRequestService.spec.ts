@@ -34,6 +34,7 @@ describe('CreateUserAdoptionRequestService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -41,6 +42,7 @@ describe('CreateUserAdoptionRequestService', () => {
         const user2 = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -78,6 +80,7 @@ describe('CreateUserAdoptionRequestService', () => {
         const userTutorFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -114,6 +117,7 @@ describe('CreateUserAdoptionRequestService', () => {
         const userTutorFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -134,6 +138,56 @@ describe('CreateUserAdoptionRequestService', () => {
 
         const adoptionRequest = createUserAdoptionRequestService.execute({
             userId: userTutorFake.id,
+            petId: pet.id
+        });
+
+        await expect(adoptionRequest).rejects.toBeInstanceOf(AppError);
+
+    });
+
+    it('Should not be able to create duplication adoption request with userId and petId', async () => {
+        const cityFake = await fakeCityRepository.create({
+            name: 'Fortaleza', 
+            state: 'CE'
+        })
+
+        const userTutorFake = await fakeUsersRepository.create({
+            name: 'Daniel Morais',
+            email: 'daniel@email.com',
+            phone: '88123345789',
+            password: '12345678',
+            cityId: cityFake.id
+        });
+
+        const userAdoptionRequest = await fakeUsersRepository.create({
+            name: 'Daniel Morais',
+            email: 'daniel2@email.com',
+            phone: '88123345789',
+            password: '12345678',
+            cityId: cityFake.id
+        });
+
+        const breed = await fakeBreedsRepository.create({
+            name: 'vira-lata',
+            type: 'Dog'
+        });
+
+        const pet = await fakePetsRepository.create({
+            name: 'Caramelo',
+            age: 10,
+            color: 'caramelo',
+            gender: 'Male',
+            breedId: breed.id,
+            tutorId: userTutorFake.id
+        });
+
+        await fakeAdoptionRequestsRepository.create({
+            userId: userAdoptionRequest.id,
+            petId: pet.id,
+        });
+
+        const adoptionRequest = createUserAdoptionRequestService.execute({
+            userId: userAdoptionRequest.id,
             petId: pet.id
         });
 

@@ -31,6 +31,7 @@ describe('ShowPetService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -58,8 +59,8 @@ describe('ShowPetService', () => {
             tutorId: userFake.id
         });
 
-        const petById1 = await showPetService.execute(pet1.id)
-        const petById2 = await showPetService.execute(pet2.id)
+        const petById1 = await showPetService.execute({petId: pet1.id, userId: userFake.id})
+        const petById2 = await showPetService.execute({petId: pet2.id, userId: userFake.id})
 
         expect(petById1).toEqual(pet1);
         expect(petById2).toEqual(pet2);
@@ -76,6 +77,7 @@ describe('ShowPetService', () => {
         const userFake = await fakeUsersRepository.create({
             name: 'Daniel Morais',
             email: 'daniel@email.com',
+            phone: '88123345789',
             password: '12345678',
             cityId: cityFake.id
         });
@@ -94,7 +96,7 @@ describe('ShowPetService', () => {
             tutorId: userFake.id
         });
 
-        const petById = showPetService.execute('123'); // incorrect id
+        const petById = showPetService.execute({petId: '234', userId: userFake.id}); // incorrect id
        
         await expect(petById).rejects.toBeInstanceOf(AppError);
         

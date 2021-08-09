@@ -42,7 +42,7 @@ const AdoptionRequestItem = ({
     }
 
     if (item.status === 'accepted') {
-      options.push({text: 'Entrar em contato', type: 'cancel'});
+      options.push({text: 'Entrar em contato', type: 'info'});
     }
 
     if (item.status === 'canceled') {
@@ -65,11 +65,13 @@ const AdoptionRequestItem = ({
 
   return (
     <Container style={styles.shadowCard}>
-      <CardImage
-        source={{
-          uri: item.pet.images[0].path,
-        }}
-      />
+      {item.pet.images && (
+        <CardImage
+          source={{
+            uri: item.pet.images[0].path,
+          }}
+        />
+      )}
       <View style={{flex: 1, marginLeft: 10, justifyContent: 'center'}}>
         <CardTitle>{item.pet.name}</CardTitle>
         <CardSubTitle>{item.pet.breed.name}</CardSubTitle>

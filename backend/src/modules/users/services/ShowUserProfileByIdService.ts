@@ -25,10 +25,6 @@ class ShowUserProfileById{
             throw new AppError('Usuário não encontrado.');
         }
 
-        // const cityInfo = await this.cityRepository.findById(user.city_id);
-
-        // user.city = cityInfo as City;
-
         return user;
     }
 }

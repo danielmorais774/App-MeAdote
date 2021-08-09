@@ -23,7 +23,14 @@ import InputMask from '../../components/InputMask';
 import Button from '../../components/Button';
 import ImageItem from './ImageItem';
 
-import {Container, Row, TitleView, ButtonBack, ContainerBottom} from './styles';
+import {
+  Container,
+  Row,
+  TitleView,
+  ButtonBack,
+  ContainerBottom,
+  ButtonTrash,
+} from './styles';
 
 import {Item} from 'react-native-picker-select';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -169,7 +176,7 @@ const AddOrEditPet: React.FC<{
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome é obrigatório'),
-          color: Yup.string().required('E-mail obrigatório'),
+          color: Yup.string().required('Cor é obrigatório'),
           gender: Yup.string().required('Selecione um sexo'),
           age: Yup.string()
             .min(1, 'Idade Inválida')
@@ -183,6 +190,7 @@ const AddOrEditPet: React.FC<{
 
         if (petImages.length <= 1) {
           Alert.alert('Imagens obrigatórias!', 'Insira pelo menos uma imagem!');
+          return;
         }
 
         setIsLoadingSave(true);
@@ -252,6 +260,28 @@ const AddOrEditPet: React.FC<{
     [petImages, goBack, petimagesDeleted, petId],
   );
 
+  const deletePetApi = useCallback(
+    async (id: string): Promise<void> => {
+      try {
+        Toast.show('Deletando pet ... aguarde!');
+
+        await petsService.deletePet(id);
+
+        Alert.alert(
+          'Deletado com sucesso!',
+          'O pet foi removido da lista de adoção!',
+          [{text: 'Ok', onPress: () => goBack()}],
+        );
+      } catch (e) {
+        Alert.alert(
+          'Erro ao deletar',
+          'Ocorreu um erro ao deletar o pet, tente novamente!',
+        );
+      }
+    },
+    [goBack],
+  );
+
   const removeImageItem = useCallback(
     (idx: number) => {
       const petImage = petImages.find((_, index) => index === idx);
@@ -288,6 +318,29 @@ const AddOrEditPet: React.FC<{
     [removeImageItem],
   );
 
+  const handlePetDelete = useCallback(
+    (id: string) => {
+      Alert.alert(
+        'Tem certeza?',
+        'Será deletado permanentemente',
+        [
+          {
+            text: 'Não',
+            style: 'cancel',
+          },
+          {
+            text: 'Sim, deletar!',
+            onPress: () => deletePetApi(id),
+          },
+        ],
+        {
+          cancelable: true,
+        },
+      );
+    },
+    [deletePetApi],
+  );
+
   const Header = useMemo(
     () => (
       <>
@@ -301,7 +354,14 @@ const AddOrEditPet: React.FC<{
           </ButtonBack>
 
           <TitleView>Pet</TitleView>
-          <View style={{width: 35}} />
+
+          {petId ? (
+            <ButtonTrash onPress={() => handlePetDelete(petId)}>
+              <FeatherIcons name="trash" size={18} color="#EE5253" />
+            </ButtonTrash>
+          ) : (
+            <View style={{width: 35}} />
+          )}
         </Row>
 
         {!isLoading && (
@@ -356,8 +416,10 @@ const AddOrEditPet: React.FC<{
       isLoading,
       breeds,
       petInfo,
+      petId,
       formatItensPicker,
       handleSubmit,
+      handlePetDelete,
     ],
   );
 

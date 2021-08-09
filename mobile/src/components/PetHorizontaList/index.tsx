@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, FlatList, ActivityIndicator} from 'react-native';
+import {IPetRaw} from '../../models/petRaw';
 
 import PetCardItem from './components/PetCardItem';
 
@@ -13,7 +14,7 @@ export interface IPetCard {
 }
 
 interface IPetHorizontalistProps {
-  data: IPetCard[];
+  data: IPetRaw[];
   isLoading?: boolean;
 }
 

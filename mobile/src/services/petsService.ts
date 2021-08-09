@@ -48,6 +48,10 @@ interface IBreedsResponseAPI {
   breeds: IBreed[];
 }
 
+interface IDeletePetResponseAPI {
+  error: boolean;
+}
+
 export class PetsService implements IPetsService {
   public async getPets(): Promise<IPetsResponseAPI> {
     try {
@@ -189,6 +193,22 @@ export class PetsService implements IPetsService {
       }
 
       return response.data.pet;
+    } catch (e) {
+      throw new Error();
+    }
+  }
+
+  public async deletePet(id: string): Promise<boolean> {
+    try {
+      const response = await api.delete<IDeletePetResponseAPI>(
+        `api/v1/pets/${id}`,
+      );
+
+      if (response.data.error === true) {
+        throw new Error();
+      }
+
+      return !response.data.error;
     } catch (e) {
       throw new Error();
     }

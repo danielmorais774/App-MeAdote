@@ -3,8 +3,8 @@ import { container } from "tsyringe";
 import { classToClass } from "class-transformer";
 
 import CreateUserService from "@modules/users/services/CreateUserService";
-import ShowUserProfileById from "@modules/users/services/ShowUserProfileById";
-import UpdateUserProfileById from "@modules/users/services/UpdateUserProfileById";
+import ShowUserProfileById from "@modules/users/services/ShowUserProfileByIdService";
+import UpdateUserProfileById from "@modules/users/services/UpdateUserProfileByIdService";
 
 
 class UserController{

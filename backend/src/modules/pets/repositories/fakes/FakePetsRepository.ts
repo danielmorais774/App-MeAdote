@@ -25,7 +25,7 @@ class FakePetsRepository implements IPetsRepository{
     }
 
     public async findById(id: string): Promise<Pet | undefined>{
-        return this.pets.find(pet => pet.id === id);
+       return this.pets.find(pet => pet.id === id);
     }
 
     public async findByTutorId(tutorId: string): Promise<Pet[]>{
@@ -48,6 +48,22 @@ class FakePetsRepository implements IPetsRepository{
         pet.created_at = new Date();
         this.pets.push(pet);
         return pet;
+    }
+
+    public async save(pet: Pet): Promise<Pet>{
+        const findIndex = this.pets.findIndex(
+            findPet => findPet.id === pet.id,
+        );
+      
+        this.pets[findIndex] = pet;
+      
+        return pet;
+    }
+
+    public async delete(pet: Pet): Promise<void>{
+        this.pets = this.pets.filter(
+            findPet => findPet.id !== pet.id,
+        );
     }
 
 }

@@ -14,6 +14,7 @@ const MyAdoptions: React.FC = () => {
     [],
   );
 
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [isLoading, setIsloading] = useState<boolean>(true);
 
   // functions apis
@@ -30,20 +31,32 @@ const MyAdoptions: React.FC = () => {
 
   const updateStatus = useCallback(
     async (id: string, status: 'canceled') => {
-      setAdoptionRequests(
-        adoptionRequests.map(adoptionRequest => {
-          return adoptionRequest.id === id
-            ? {...adoptionRequest, status: 'canceled'}
-            : adoptionRequest;
-        }),
-      );
-      console.log(status, id);
+      try {
+        await adoptionRequestsService.editAdoptionRequestStatus({
+          adoptionRequestId: id,
+          status,
+        });
+
+        setAdoptionRequests(
+          adoptionRequests.map(adoptionRequest => {
+            return adoptionRequest.id === id
+              ? {...adoptionRequest, status: 'canceled'}
+              : adoptionRequest;
+          }),
+        );
+      } catch (e) {}
     },
     [adoptionRequests],
   );
 
   useEffect(() => {
     loadApi();
+  }, [loadApi]);
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await loadApi();
+    setRefreshing(false);
   }, [loadApi]);
 
   return (
@@ -57,6 +70,8 @@ const MyAdoptions: React.FC = () => {
         <AdoptionRequestList
           data={adoptionRequests}
           updateStatus={updateStatus}
+          refreshing={refreshing}
+          handleRefresh={handleRefresh}
         />
       )}
     </Container>

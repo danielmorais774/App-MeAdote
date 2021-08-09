@@ -54,4 +54,6 @@ petRouter.get('/:id', petController.show);
 
 petRouter.get('/', petController.index);
 
+petRouter.delete('/:id', petController.delete);
+
 export default petRouter;

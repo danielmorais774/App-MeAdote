@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,8 +99,8 @@
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,38 +110,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import IUsersRepository from "@modules/users/repositories/IUsersRepository";
-<span class="cstat-no" title="statement not covered" >import AppError from "@shared/erros/AppError";</span>
-<span class="cstat-no" title="statement not covered" >import { inject, injectable } from "tsyringe";</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import IUsersRepository from "@modules/users/repositories/IUsersRepository";
+import AppError from "@shared/erros/AppError";
+import { inject, injectable } from "tsyringe";
 import Pet from "../infra/typeorm/entities/Pet";
 import IPetsRepository from "../repositories/IPetsRepository";
 &nbsp;
@@ -151,43 +151,43 @@ interface IRequest{
 }
 &nbsp;
 @injectable()
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >class <span class="cstat-no" title="statement not covered" >L</span></span>istPetsLocationService{</span>
-<span class="fstat-no" title="function not covered" >    constructor(</span>
+class ListPetsLocationService{
+    constructor(
         @inject('PetsRepository')
-        private <span class="cstat-no" title="statement not covered" >petsRepository: IPetsRepository,</span>
+        private petsRepository: IPetsRepository,
 &nbsp;
         @inject('UsersRepository')
-        private <span class="cstat-no" title="statement not covered" >usersRepository: IUsersRepository</span>
+        private usersRepository: IUsersRepository
     ){}
 &nbsp;
-<span class="fstat-no" title="function not covered" >    public async <span class="cstat-no" title="statement not covered" >e</span>xecute({cityId<span class="cstat-no" title="statement not covered" >, u</span>serId<span class="cstat-no" title="statement not covered" >}: IRequest)</span>: Promise&lt;Pet[]&gt;{</span>
+    public async execute({cityId, userId}: IRequest): Promise&lt;Pet[]&gt;{
 &nbsp;
         // Caso o parametro cityId seja null, então é usado o userId para buscar a localização
-        if(<span class="cstat-no" title="statement not covered" >!c</span>ityId &amp;&amp; userId){
-            const <span class="cstat-no" title="statement not covered" >userInfo = <span class="cstat-no" title="statement not covered" >await this.usersRepository.findById(userId);</span></span>
+        if(!cityId &amp;&amp; userId){
+            const userInfo = await this.usersRepository.findById(userId);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            if(!userInfo){</span>
-<span class="cstat-no" title="statement not covered" >                throw new AppError('Usuário não encontrado', 400);</span>
+            if(!userInfo){
+                throw new AppError('Usuário não encontrado', 400);
             }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            cityId = userInfo.city_id;</span>
+            cityId = userInfo.city_id;
         }
         // else if(!cityId &amp;&amp; !userId){
         //     throw new AppError('Parametros de busca inválidos', 501);
         // }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        return <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >await this.petsRepository.findByLocation(cityId as string);</span></span></span>
+        return await this.petsRepository.findByLocation(cityId as string);
     }
-<span class="cstat-no" title="statement not covered" >}</span>
+}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default ListPetsLocationService;</span></pre></td></tr></table></pre>
+export default ListPetsLocationService;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jul 24 2021 09:22:53 GMT-0300 (Horário Padrão de Brasília)
+                at Mon Aug 09 2021 16:49:00 GMT-0300 (Horário Padrão de Brasília)
             </div>
         </div>
         <script src="../../prettify.js"></script>

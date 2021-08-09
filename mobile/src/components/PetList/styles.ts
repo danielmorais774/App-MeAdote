@@ -14,3 +14,10 @@ export const Title = styled.Text`
   margin-bottom: 6px;
   margin-top: 10px;
 `;
+
+export const TitleEmpty = styled.Text`
+  font-size: 15px;
+  font-weight: bold;
+  color: #343434;
+  text-align: center;
+`;

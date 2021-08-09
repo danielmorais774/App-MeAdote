@@ -13,7 +13,7 @@ interface IRequest {
 }
 
 @injectable()
-class UpdateUserProfileById{
+class UpdateUserProfileByIdService{
     constructor(
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
@@ -40,9 +40,9 @@ class UpdateUserProfileById{
 
         user.name = name;
         user.phone = phone;
-        if(city){
-            user.city = city;
-        }
+        
+        user.city = city;
+        user.city_id = cityId;
 
         if(avatar){
             if(user.avatar){
@@ -55,9 +55,7 @@ class UpdateUserProfileById{
 
     
         return await this.usersRepository.save(user);
-       
-        // return await this.usersRepository.findById(id) || user;
     }
 }
 
-export default UpdateUserProfileById;
+export default UpdateUserProfileByIdService;

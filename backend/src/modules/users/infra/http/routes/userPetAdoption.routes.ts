@@ -13,7 +13,7 @@ userPetAdoptionRoutes.patch('/:adoptionRequestId', celebrate({
         adoptionRequestId: Joi.string().uuid().required(),
     },
     [Segments.BODY]: {
-        status: Joi.string().valid('accepted', 'refused').required()
+        status: Joi.string().valid('accepted', 'refused', 'adopted').required()
     },
   }),
   userPetAdoptionRequestController.edit

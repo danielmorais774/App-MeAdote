@@ -3,12 +3,12 @@ import {View, ActivityIndicator, Dimensions, Alert} from 'react-native';
 
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
-// import Toast from 'react-native-simple-toast';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // import Button from '../../../components/Button';
 import PetList from '../../../components/PetList';
 
-import {Container, Row, TitleView, ButtonBack} from './styles';
+import {Container, Row, TitleView, ButtonBack, FabButton} from './styles';
 
 import {usersService} from '../../../services';
 import {IPetRaw} from '../../../models/petRaw';
@@ -82,9 +82,13 @@ const MyPets: React.FC = () => {
           <PetList
             data={myPets}
             paddingHorizontal={0}
+            paddingBottom={75}
             header={Header}
             onPressItem={id => navigate('AddOrEditPet', {id})}
           />
+          <FabButton onPress={() => navigate('AddOrEditPet')}>
+            <Ionicons name="paw-outline" size={20} color="#fff" />
+          </FabButton>
         </>
       )}
     </Container>

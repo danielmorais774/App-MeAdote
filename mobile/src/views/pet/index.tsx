@@ -30,9 +30,11 @@ import {
 import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Toast from 'react-native-simple-toast';
 
 //hooks
 import {useNavigation, RouteProp} from '@react-navigation/native';
+import {useAuth} from '../../hooks/auth';
 
 //component externos
 import LinearGradient from 'react-native-linear-gradient';
@@ -43,7 +45,7 @@ import {IPetDetails} from '../../models/petDetails';
 import {capitalize} from '../../utils/capitalize';
 import SliderImage from '../../components/SliderImage';
 import Button from '../../components/Button';
-import {petsService} from '../../services';
+import {adoptionRequestsService, petsService} from '../../services';
 
 const Pet: React.FC<{route: RouteProp<{params: {id: string}}, 'params'>}> = ({
   route,
@@ -54,6 +56,9 @@ const Pet: React.FC<{route: RouteProp<{params: {id: string}}, 'params'>}> = ({
   let HEADER_MAX_HEIGHT = 290;
   let HEADER_MIN_HEIGHT = 0;
   const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
+
+  //hooks
+  const {user} = useAuth();
 
   // states
   const [scrollY] = useState<Animated.Value>(new Animated.Value(0));
@@ -111,6 +116,18 @@ const Pet: React.FC<{route: RouteProp<{params: {id: string}}, 'params'>}> = ({
   useEffect(() => {
     apiLoad();
   }, [apiLoad]);
+
+  const handleSendRequest = useCallback(async () => {
+    try {
+      await adoptionRequestsService.createAdoptionRequest(petInfo.id);
+      setPetInfo({...petInfo, isAdoptionRequested: true});
+    } catch (e) {
+      Alert.alert(
+        'Error ao enviar',
+        'não foi possivel reallizar seu pedido, tente novamente!',
+      );
+    }
+  }, [petInfo]);
 
   return (
     <Container>
@@ -226,7 +243,35 @@ const Pet: React.FC<{route: RouteProp<{params: {id: string}}, 'params'>}> = ({
       </ScrollView>
       {isLoading === false && (
         <BottomContainer>
-          <Button title="QUERO ADOTAR" />
+          {user.id === petInfo.tutor_id ? (
+            <Button
+              title={'QUERO ADOTAR'}
+              color={
+                petInfo.isAdoptionRequested === true ? '#0ABDE3' : '#3DC162'
+              }
+              onPress={() => {
+                Toast.show('Você não pode adotar seu próprio pet!');
+              }}
+            />
+          ) : (
+            <Button
+              title={
+                petInfo.isAdoptionRequested === true
+                  ? 'PEDIDO EM ANDAMENTO'
+                  : 'QUERO ADOTAR'
+              }
+              color={
+                petInfo.isAdoptionRequested === true ? '#0ABDE3' : '#3DC162'
+              }
+              onPress={
+                petInfo.isAdoptionRequested === false
+                  ? handleSendRequest
+                  : () => {
+                      Toast.show('Você já possui um pedido de adoção feito!');
+                    }
+              }
+            />
+          )}
         </BottomContainer>
       )}
     </Container>
