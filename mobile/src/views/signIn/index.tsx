@@ -83,7 +83,7 @@ const SignIn: React.FC = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       enabled>
       <Container>
-        <LogoImage source={require('../../assets/images/profile.png')} />
+        <LogoImage source={require('../../assets/images/logo.png')} />
         <DescriptionLabel>
           Preencha os campos abaixo com suas credenciais.
         </DescriptionLabel>
